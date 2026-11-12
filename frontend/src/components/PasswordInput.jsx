@@ -12,7 +12,7 @@ export default function PasswordInput(props) {
       <button
         type="button"
         onClick={() => setShow(!show)}
-        className="absolute right-3 top-2 text-sm text-blue-600"
+        className="absolute right-3 top-2 text-sm text-purple-600"
       >
         {show ? "Hide" : "Show"}
       </button>

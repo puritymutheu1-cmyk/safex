@@ -46,11 +46,11 @@ export default function Register() {
         <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} required className={box} />
         <PasswordInput name="password" placeholder="Password" value={form.password} onChange={handleChange} required />
         <PasswordInput name="confirm" placeholder="Confirm password" value={form.confirm} onChange={handleChange} required />
-        <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white rounded-lg py-2 font-semibold hover:bg-blue-700 disabled:opacity-60">
+        <button type="submit" disabled={loading} className="w-full bg-purple-600 text-white rounded-lg py-2 font-semibold hover:bg-purple-700 disabled:opacity-60">
           {loading ? "Creating account..." : "Sign up"}
         </button>
         <p className="text-sm text-center">
-          Already have an account? <Link to="/login" className="text-blue-600 underline">Log in</Link>
+          Already have an account? <Link to="/login" className="text-purple-600 underline">Log in</Link>
         </p>
       </form>
     </div>

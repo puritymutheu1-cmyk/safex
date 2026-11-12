@@ -53,7 +53,7 @@ export default function Marketplace() {
           <button
             key={c}
             onClick={() => setCoin(c)}
-            className={"px-4 py-1 rounded-full border " + (coin === c ? "bg-blue-600 text-white" : "bg-white text-black")}
+            className={"px-4 py-1 rounded-full border " + (coin === c ? "bg-purple-600 text-white" : "bg-white text-black")}
           >
             {c}
           </button>

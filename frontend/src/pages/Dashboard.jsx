@@ -80,7 +80,7 @@ export default function Dashboard() {
               </p>
               <div className="flex gap-2 mt-3">
                 {t.status === "pending" && isBuyer && (
-                  <button onClick={() => act(t.id, "paid")} className={btn + "bg-blue-600"}>
+                  <button onClick={() => act(t.id, "paid")} className={btn + "bg-purple-600"}>
                     I have paid
                   </button>
                 )}

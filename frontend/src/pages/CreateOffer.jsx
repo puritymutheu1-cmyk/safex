@@ -56,7 +56,7 @@ export default function CreateOffer() {
           <option>Airtel Money</option>
           <option>Bank transfer</option>
         </select>
-        <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white rounded-lg py-2 font-semibold disabled:opacity-60">
+        <button type="submit" disabled={loading} className="w-full bg-purple-600 text-white rounded-lg py-2 font-semibold disabled:opacity-60">
           {loading ? "Posting..." : "Post offer"}
         </button>
       </form>

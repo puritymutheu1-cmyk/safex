@@ -37,11 +37,11 @@ export default function Login() {
         {error && <p className="text-red-600 text-sm">{error}</p>}
         <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} required className="w-full border rounded-lg px-4 py-2" />
         <PasswordInput name="password" placeholder="Password" value={form.password} onChange={handleChange} required />
-        <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white rounded-lg py-2 font-semibold hover:bg-blue-700 disabled:opacity-60">
+        <button type="submit" disabled={loading} className="w-full bg-purple-600 text-white rounded-lg py-2 font-semibold hover:bg-purple-700 disabled:opacity-60">
           {loading ? "Logging in..." : "Log in"}
         </button>
         <p className="text-sm text-center">
-          No account? <Link to="/register" className="text-blue-600 underline">Sign up</Link>
+          No account? <Link to="/register" className="text-purple-600 underline">Sign up</Link>
         </p>
       </form>
     </div>
