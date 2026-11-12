@@ -8,7 +8,7 @@ such as M-Pesa, Airtel Money or bank transfer.
 > does not hold funds or verify payments, so it must not be used to trade real
 > money in its current form.
 
-**Live demo:** _add your Netlify link here_
+**Live demo:** https://safexapp.netlify.app
 **API docs:** _add your Render link here_/docs
 
 ## Features
