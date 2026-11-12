@@ -32,11 +32,11 @@ def start_trade(data: TradeIn, user=Depends(current_user)):
     coins = round(data.amount_kes / offer["price"], 8)
     cur = conn.execute(
         "INSERT INTO trades (offer_id, buyer_id, seller_id, coin, amount_kes, amount_coin) "
-        "VALUES (?, ?, ?, ?, ?, ?)",
+        "VALUES (?, ?, ?, ?, ?, ?) RETURNING id",
         (offer["id"], user["id"], offer["seller_id"], offer["coin"], data.amount_kes, coins),
     )
+    trade_id = cur.fetchone()["id"]
     conn.commit()
-    trade_id = cur.lastrowid
     conn.close()
     return {"id": trade_id, "amount_coin": coins, "status": "pending"}
 

@@ -1,8 +1,9 @@
+import os
 import sqlite3
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from app.db import get_conn, init_db, init_trades_db
+from app.db import get_conn, init_db, init_trades_db, IntegrityError
 from app.security import hash_password, verify_password, create_token
 from app.deps import current_user
 from app import offers, trades
@@ -11,7 +12,7 @@ app = FastAPI(title="Safex API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173", os.getenv("FRONTEND_URL", "")],
     allow_origin_regex=r"http://(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+):5173",
     allow_methods=["*"],
     allow_headers=["*"],
@@ -48,7 +49,7 @@ def register(data: RegisterIn):
             (data.name, data.email.lower(), hash_password(data.password)),
         )
         conn.commit()
-    except sqlite3.IntegrityError:
+    except IntegrityError:
         raise HTTPException(status_code=400, detail="Email already registered")
     finally:
         conn.close()
