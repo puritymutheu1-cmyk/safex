@@ -8,6 +8,7 @@ import Marketplace from "./pages/Marketplace";
 import CreateOffer from "./pages/CreateOffer";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import FAQ from "./pages/FAQ";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/marketplace" element={<Marketplace />} />
         <Route path="/create-offer" element={<CreateOffer />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/faq" element={<FAQ />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

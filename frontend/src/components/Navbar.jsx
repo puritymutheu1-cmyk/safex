@@ -18,6 +18,7 @@ export default function Navbar() {
   const links = [
     { to: '/', label: 'Home' },
     { to: '/marketplace', label: 'Marketplace' },
+    { to: '/faq', label: 'FAQ' },
     ...(loggedIn ? [{ to: '/dashboard', label: 'Dashboard' }, { to: '/create-offer', label: 'Sell' }] : []),
   ]
 
