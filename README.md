@@ -11,6 +11,10 @@ such as M-Pesa, Airtel Money or bank transfer.
 **Live demo:** https://safexapp.netlify.app
 **API docs:** _add your Render link here_/docs
 
+## Try it on your phone
+
+![Scan to open Safex](frontend/public/qr.png)
+
 ## Features
 
 - Register and log in (passwords hashed, JWT sessions that expire after 12 hours)
