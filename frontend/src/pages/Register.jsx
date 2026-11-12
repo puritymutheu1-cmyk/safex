@@ -39,7 +39,7 @@ export default function Register() {
 
   return (
     <div className="min-h-[70vh] flex items-center justify-center px-4">
-      <form onSubmit={handleSubmit} className="w-full max-w-md bg-white shadow-lg rounded-xl p-8 space-y-4">
+      <form onSubmit={handleSubmit} className="w-full max-w-md bg-white text-black shadow-lg rounded-xl p-8 space-y-4">
         <h1 className="text-2xl font-bold">Create your account</h1>
         {error && <p className="text-red-600 text-sm">{error}</p>}
         <input name="name" placeholder="Full name" value={form.name} onChange={handleChange} required className={box} />

@@ -1,8 +1,8 @@
 const stats = [
-  { label: '100% Secure', sub: 'Non-custodial & encrypted' },
-  { label: '250K+ Users', sub: 'Growing global community' },
-  { label: '$1B+ Traded', sub: 'Peer-to-peer volume' },
-  { label: 'Worldwide', sub: 'Available in 100+ countries' },
+  { label: 'Secure logins', sub: 'Hashed passwords & JWT sessions' },
+  { label: 'Peer-to-peer', sub: 'Trade directly with other users' },
+  { label: 'Local payments', sub: 'M-Pesa, Airtel Money, bank transfer' },
+  { label: 'Built for KES', sub: 'Offers priced in Kenyan shillings' },
 ]
 
 export default function Stats() {

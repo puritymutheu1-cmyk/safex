@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const prices = [
   { symbol: 'BTC', name: 'Bitcoin', price: '$67,842.15', change: '+1.32%', up: true },
   { symbol: 'ETH', name: 'Ethereum', price: '$3,512.47', change: '+2.08%', up: true },
@@ -17,22 +19,22 @@ export default function Hero() {
           <span className="text-primary"> Securely</span>
         </h1>
         <p className="text-text-muted text-lg mb-8 max-w-md leading-relaxed">
-          Safex is a trusted peer-to-peer platform to buy and sell crypto directly with other users.
+          Safex is a peer-to-peer platform to buy and sell crypto directly with other users.
         </p>
         <div className="flex flex-wrap gap-4">
-          <button className="bg-primary hover:bg-primary-hover text-white font-medium px-6 py-3 rounded-lg transition">
+          <Link to="/register" className="bg-primary hover:bg-primary-hover text-white font-medium px-6 py-3 rounded-lg transition">
             Create Account
-          </button>
-          <button className="border border-border hover:border-primary/50 text-text font-medium px-6 py-3 rounded-lg transition">
-            Explore Markets
-          </button>
+          </Link>
+          <Link to="/marketplace" className="border border-border hover:border-primary/50 text-text font-medium px-6 py-3 rounded-lg transition">
+            Explore Marketplace
+          </Link>
         </div>
       </div>
 
       <div className="bg-surface border border-border rounded-2xl p-6">
         <div className="flex items-center justify-between mb-5">
-          <h3 className="font-semibold">Live Prices</h3>
-          <span className="text-xs text-text-muted">Updated just now</span>
+          <h3 className="font-semibold">Sample Prices</h3>
+          <span className="text-xs text-text-muted">Demo data</span>
         </div>
         <div className="space-y-4">
           {prices.map((coin) => (
