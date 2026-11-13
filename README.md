@@ -133,3 +133,9 @@ The website runs at http://localhost:5173.
 ## License
 
 Released under the [MIT License](LICENSE).
+
+## Screenshots
+
+![Home](screenshots/home.png)
+![Marketplace](screenshots/marketplace.png)
+![Dashboard](screenshots/dashboard.png)
