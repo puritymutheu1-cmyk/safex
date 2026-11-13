@@ -63,30 +63,29 @@ export default function InstallPrompt() {
   if (!show) return null;
 
   return (
-    <div className="w-full bg-surface border-b border-border">
-      <div className="max-w-6xl mx-auto px-3 py-2 flex items-center gap-3">
-        <button
-          onClick={close}
-          aria-label="Continue on web"
-          className="text-text-muted hover:text-text text-lg px-1"
-        >
-          ✕
-        </button>
-        <div className="w-10 h-10 shrink-0 rounded-lg bg-primary flex items-center justify-center font-bold text-white">
+    <div className="animate-fade fixed inset-0 z-[100] bg-black/85 backdrop-blur-sm flex items-center justify-center px-6">
+      <div className="w-full max-w-sm bg-surface border border-border rounded-2xl p-6 text-center shadow-2xl">
+        <div className="w-16 h-16 mx-auto rounded-2xl bg-primary flex items-center justify-center text-3xl font-bold text-white mb-4">
           S
         </div>
-        <div className="min-w-0 flex-1">
-          <p className="font-semibold text-sm leading-tight">Safex</p>
-          <p className="text-xs text-text-muted truncate">Install the app for a faster experience</p>
-        </div>
+        <h2 className="text-xl font-bold mb-1">Safex</h2>
+        <p className="text-sm text-text-muted mb-6">
+          Install the app for a faster, full-screen experience, or continue on the website.
+        </p>
+        {hint && <p className="text-xs text-text-muted mb-4">{hint}</p>}
         <button
           onClick={install}
-          className="bg-primary hover:bg-primary-hover text-white text-sm font-semibold rounded-full px-5 py-1.5"
+          className="w-full bg-primary hover:bg-primary-hover text-white font-semibold rounded-xl py-3"
         >
-          Install
+          Install app
+        </button>
+        <button
+          onClick={close}
+          className="w-full mt-3 border border-border rounded-xl py-3 text-sm text-text-muted"
+        >
+          Continue on web
         </button>
       </div>
-      {hint && <p className="px-4 pb-2 text-xs text-text-muted">{hint}</p>}
     </div>
   );
 }
