@@ -30,7 +30,7 @@ export default function InstallPrompt() {
 
   useEffect(() => {
     const force = new URLSearchParams(window.location.search).get("install") === "1";
-    if (!force && (standalone || dismissedRecently() || !isMobile)) return;
+    if (!force && (standalone || dismissedRecently())) return;
     const onPrompt = (e) => {
       e.preventDefault();
       setDeferred(e);
