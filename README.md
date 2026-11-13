@@ -9,7 +9,7 @@ such as M-Pesa, Airtel Money or bank transfer.
 > money in its current form.
 
 **Live demo:** https://safexapp.netlify.app
-**API docs:** _add your Render link here_/docs
+**API docs:** https://YOUR-SERVICE.onrender.com/docs
 
 ## Try it on your phone
 
