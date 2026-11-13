@@ -5,7 +5,7 @@ const WEEK = 7 * 24 * 60 * 60 * 1000;
 
 function dismissedRecently() {
   try {
-    const t = Number(localStorage.getItem(KEY));
+    const t = Number(sessionStorage.getItem(KEY));
     return t > 0 && Date.now() - t < WEEK;
   } catch {
     return false;
@@ -13,7 +13,7 @@ function dismissedRecently() {
 }
 
 function rememberDismiss() {
-  try { localStorage.setItem(KEY, String(Date.now())); } catch {}
+  try { sessionStorage.setItem(KEY, String(Date.now())); } catch {}
 }
 
 function shouldShow() {
