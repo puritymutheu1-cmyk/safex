@@ -19,15 +19,20 @@ export default function InstallPrompt() {
   const isIOS = /iphone|ipad|ipod/i.test(window.navigator.userAgent);
 
   useEffect(() => {
-    if (standalone || read()) return;
+    const force = new URLSearchParams(window.location.search).get("install") === "1";
+    if (!force && (standalone || read())) return;
     let timer;
-    const onPrompt = (e) => {
-      e.preventDefault();
+    const arm = (e) => {
       setDeferred(e);
       timer = setTimeout(() => setShow(true), 1200);
     };
+    const onPrompt = (e) => {
+      e.preventDefault();
+      arm(e);
+    };
+    if (window.__installEvent) arm(window.__installEvent);
     window.addEventListener("beforeinstallprompt", onPrompt);
-    if (isIOS) timer = setTimeout(() => setShow(true), 1200);
+    if (isIOS || force) timer = setTimeout(() => setShow(true), 1200);
     return () => {
       clearTimeout(timer);
       window.removeEventListener("beforeinstallprompt", onPrompt);
@@ -54,7 +59,9 @@ export default function InstallPrompt() {
     ["Full-screen and fast", "No browser bar, so trades get the whole screen."],
     ["Pay the way you already do", "Offers in KES with M-Pesa, Airtel Money or bank transfer."],
   ];
-  const steps = ["Tap the Share button", "Choose Add to Home Screen", "Tap Add"];
+  const steps = isIOS
+    ? ["Tap the Share button", "Choose Add to Home Screen", "Tap Add"]
+    : ["Open your browser menu (the three dots)", "Choose Install app or Add to Home screen", "Confirm"];
 
   return (
     <div className="animate-fade fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-end sm:items-center justify-center">
