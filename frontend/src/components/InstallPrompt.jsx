@@ -20,14 +20,18 @@ export default function InstallPrompt() {
 
   useEffect(() => {
     if (standalone || read()) return;
+    let timer;
     const onPrompt = (e) => {
       e.preventDefault();
       setDeferred(e);
-      setShow(true);
+      timer = setTimeout(() => setShow(true), 1200);
     };
     window.addEventListener("beforeinstallprompt", onPrompt);
-    if (isIOS) setShow(true);
-    return () => window.removeEventListener("beforeinstallprompt", onPrompt);
+    if (isIOS) timer = setTimeout(() => setShow(true), 1200);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("beforeinstallprompt", onPrompt);
+    };
   }, []);
 
   const dismiss = () => {
@@ -45,37 +49,73 @@ export default function InstallPrompt() {
 
   if (!show) return null;
 
+  const perks = [
+    ["Open in one tap", "Safex sits on your home screen like any other app."],
+    ["Full-screen and fast", "No browser bar, so trades get the whole screen."],
+    ["Pay the way you already do", "Offers in KES with M-Pesa, Airtel Money or bank transfer."],
+  ];
+  const steps = ["Tap the Share button", "Choose Add to Home Screen", "Tap Add"];
+
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 p-4">
-      <div className="max-w-md mx-auto bg-surface border border-border rounded-2xl p-5 shadow-2xl">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center font-bold text-white">
+    <div className="animate-fade fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-end sm:items-center justify-center">
+      <div className="animate-sheet relative w-full max-w-md bg-surface border border-border rounded-t-3xl sm:rounded-3xl overflow-hidden max-h-[92vh] overflow-y-auto">
+        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-primary/30 to-transparent pointer-events-none" />
+
+        <button
+          onClick={dismiss}
+          aria-label="Close"
+          className="absolute right-4 top-4 w-8 h-8 rounded-full bg-background/60 text-text-muted hover:text-text flex items-center justify-center"
+        >
+          ✕
+        </button>
+
+        <div className="relative px-6 pt-10 pb-6">
+          <div className="w-16 h-16 rounded-2xl bg-primary shadow-lg shadow-primary/40 flex items-center justify-center text-3xl font-bold text-white mb-5">
             S
           </div>
-          <div>
-            <p className="font-semibold">Get the Safex app</p>
-            <p className="text-xs text-text-muted">Install it for quick access, or keep using the website.</p>
-          </div>
+          <h2 className="text-2xl font-bold leading-tight mb-1">Trade crypto, straight from your phone</h2>
+          <p className="text-text-muted text-sm mb-6">Install Safex for the fastest way back to your offers and trades.</p>
+
+          <ul className="space-y-4 mb-7">
+            {perks.map(([title, text]) => (
+              <li key={title} className="flex gap-3">
+                <span className="mt-0.5 w-6 h-6 shrink-0 rounded-full bg-primary/20 text-primary text-sm flex items-center justify-center">✓</span>
+                <div>
+                  <p className="font-medium text-sm">{title}</p>
+                  <p className="text-text-muted text-xs leading-relaxed">{text}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          {deferred ? (
+            <>
+              <button
+                onClick={install}
+                className="w-full bg-primary hover:bg-primary-hover text-white font-semibold rounded-xl py-3.5 shadow-lg shadow-primary/30 transition"
+              >
+                Install app
+              </button>
+              <button onClick={dismiss} className="w-full mt-3 text-sm text-text-muted hover:text-text py-2">
+                Continue on web
+              </button>
+            </>
+          ) : (
+            <>
+              <ol className="space-y-2 mb-5">
+                {steps.map((s, i) => (
+                  <li key={s} className="flex items-center gap-3 bg-background border border-border rounded-xl px-4 py-3 text-sm">
+                    <span className="w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center">{i + 1}</span>
+                    {s}
+                  </li>
+                ))}
+              </ol>
+              <button onClick={dismiss} className="w-full bg-primary hover:bg-primary-hover text-white font-semibold rounded-xl py-3.5 transition">
+                Got it
+              </button>
+            </>
+          )}
         </div>
-        {deferred ? (
-          <div className="flex gap-2">
-            <button onClick={dismiss} className="flex-1 border border-border rounded-lg py-2 text-sm">
-              Continue on web
-            </button>
-            <button onClick={install} className="flex-1 bg-primary hover:bg-primary-hover text-white rounded-lg py-2 text-sm font-medium">
-              Install app
-            </button>
-          </div>
-        ) : (
-          <div>
-            <p className="text-sm text-text-muted mb-3">
-              On iPhone: tap the Share button, then <b>Add to Home Screen</b>.
-            </p>
-            <button onClick={dismiss} className="w-full border border-border rounded-lg py-2 text-sm">
-              Continue on web
-            </button>
-          </div>
-        )}
       </div>
     </div>
   );
