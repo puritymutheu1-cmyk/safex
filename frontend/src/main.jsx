@@ -17,3 +17,8 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("/sw.js").catch(() => {});
   });
 }
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  window.__installEvent = e;
+});
