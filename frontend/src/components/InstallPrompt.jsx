@@ -3,10 +3,13 @@ import { useState, useEffect } from "react";
 const KEY = "safex-install-dismissed";
 
 function read() {
-  try { return localStorage.getItem(KEY); } catch { return null; }
+  try {
+    const t = Number(localStorage.getItem(KEY));
+    return t > 0 && Date.now() - t < 7 * 24 * 60 * 60 * 1000;
+  } catch { return false; }
 }
 function write() {
-  try { localStorage.setItem(KEY, "1"); } catch {}
+  try { localStorage.setItem(KEY, String(Date.now())); } catch {}
 }
 
 export default function InstallPrompt() {
@@ -21,18 +24,15 @@ export default function InstallPrompt() {
   useEffect(() => {
     const force = new URLSearchParams(window.location.search).get("install") === "1";
     if (!force && (standalone || read())) return;
+    const isMobile = /android|iphone|ipad|ipod/i.test(window.navigator.userAgent);
     let timer;
-    const arm = (e) => {
-      setDeferred(e);
-      timer = setTimeout(() => setShow(true), 1200);
-    };
     const onPrompt = (e) => {
       e.preventDefault();
-      arm(e);
+      setDeferred(e);
     };
-    if (window.__installEvent) arm(window.__installEvent);
+    if (window.__installEvent) setDeferred(window.__installEvent);
     window.addEventListener("beforeinstallprompt", onPrompt);
-    if (isIOS || force) timer = setTimeout(() => setShow(true), 1200);
+    if (isMobile || force) timer = setTimeout(() => setShow(true), 1200);
     return () => {
       clearTimeout(timer);
       window.removeEventListener("beforeinstallprompt", onPrompt);
