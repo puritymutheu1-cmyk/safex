@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import InstallPrompt from "./components/InstallPrompt";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -19,6 +20,7 @@ import NotFound from "./pages/NotFound";
 export default function App() {
   return (
     <>
+      <InstallPrompt />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
