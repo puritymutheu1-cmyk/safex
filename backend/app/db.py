@@ -82,3 +82,51 @@ def init_trades_db():
     )
     conn.commit()
     conn.close()
+
+
+def add_column(table, column, decl):
+    conn = get_conn()
+    try:
+        conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {decl}")
+        conn.commit()
+    except Exception:
+        try:
+            conn.raw.rollback()
+        except Exception:
+            pass
+    finally:
+        conn.close()
+
+
+def init_wallet_db():
+    conn = get_conn()
+    conn.execute(
+        f"""CREATE TABLE IF NOT EXISTS wallets (
+            id {PK},
+            user_id INTEGER NOT NULL,
+            asset TEXT NOT NULL,
+            available DOUBLE PRECISION NOT NULL DEFAULT 0,
+            locked DOUBLE PRECISION NOT NULL DEFAULT 0,
+            UNIQUE (user_id, asset)
+        )"""
+    )
+    conn.execute(
+        f"""CREATE TABLE IF NOT EXISTS transactions (
+            id {PK},
+            user_id INTEGER NOT NULL,
+            kind TEXT NOT NULL,
+            asset TEXT NOT NULL,
+            amount DOUBLE PRECISION NOT NULL,
+            note TEXT,
+            created_ts DOUBLE PRECISION NOT NULL
+        )"""
+    )
+    conn.commit()
+    conn.close()
+    add_column("offers", "amount", "DOUBLE PRECISION NOT NULL DEFAULT 0")
+    add_column("offers", "remaining", "DOUBLE PRECISION NOT NULL DEFAULT 0")
+    add_column("offers", "payment_details", "TEXT")
+    conn = get_conn()
+    conn.execute("UPDATE offers SET active = 0 WHERE amount = 0")
+    conn.commit()
+    conn.close()

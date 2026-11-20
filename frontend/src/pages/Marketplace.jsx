@@ -46,7 +46,7 @@ export default function Marketplace() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-6">Marketplace</h1>
+      <h1 className="text-3xl font-bold mb-6">Buy crypto</h1>
 
       <div className="flex gap-2 mb-6">
         {["ALL", "BTC", "ETH", "USDT"].map((c) => (
@@ -78,6 +78,7 @@ export default function Marketplace() {
               Limit: {o.min_kes.toLocaleString()} - {o.max_kes.toLocaleString()} KES
             </p>
             <p className="text-sm text-gray-600">Pay with: {o.method}</p>
+            <p className="text-sm text-gray-600">Available: {o.remaining} {o.coin}</p>
             <button
               onClick={() => openBuy(o)}
               className="mt-4 w-full bg-green-600 text-white rounded-lg py-2"

@@ -75,11 +75,12 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-8 text-sm">
           <Link to="/" className={linkClass('/')}>Home</Link>
-          <Link to="/marketplace" className={linkClass('/marketplace')}>Marketplace</Link>
+          <Link to="/marketplace" className={linkClass('/marketplace')}>Buy</Link>
           <Dropdown label="Platform" items={platform} openKey={openKey} setOpenKey={setOpenKey} pathname={path} />
           <Dropdown label="Resources" items={resources} openKey={openKey} setOpenKey={setOpenKey} pathname={path} />
           {loggedIn && <Link to="/dashboard" className={linkClass('/dashboard')}>Dashboard</Link>}
           {loggedIn && <Link to="/create-offer" className={linkClass('/create-offer')}>Sell</Link>}
+          {loggedIn && <Link to="/wallet" className={linkClass('/wallet')}>Wallet</Link>}
         </div>
 
         <div className="flex items-center gap-3">
@@ -104,7 +105,7 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="md:hidden border-t border-border px-6 py-4 flex flex-col gap-3 text-sm max-h-[80vh] overflow-y-auto">
           <Link to="/" className={linkClass('/')}>Home</Link>
-          <Link to="/marketplace" className={linkClass('/marketplace')}>Marketplace</Link>
+          <Link to="/marketplace" className={linkClass('/marketplace')}>Buy</Link>
 
           <p className="text-xs text-text-muted uppercase tracking-wide mt-2">Platform</p>
           {platform.map((i) => (
@@ -120,6 +121,7 @@ export default function Navbar() {
             <>
               <Link to="/dashboard" className={linkClass('/dashboard')}>Dashboard</Link>
               <Link to="/create-offer" className={linkClass('/create-offer')}>Sell</Link>
+              <Link to="/wallet" className={linkClass('/wallet')}>Wallet</Link>
               <button onClick={logout} className="text-left text-text-muted hover:text-text">Log out</button>
             </>
           ) : (

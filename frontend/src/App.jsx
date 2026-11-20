@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import Marketplace from "./pages/Marketplace";
 import CreateOffer from "./pages/CreateOffer";
 import Dashboard from "./pages/Dashboard";
+import Wallet from "./pages/Wallet";
 import FAQ from "./pages/FAQ";
 import HowItWorks from "./pages/HowItWorks";
 import Pricing from "./pages/Pricing";
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="/marketplace" element={<Marketplace />} />
         <Route path="/create-offer" element={<CreateOffer />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/wallet" element={<Wallet />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="/pricing" element={<Pricing />} />

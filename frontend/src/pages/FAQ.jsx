@@ -35,7 +35,7 @@ faqs.push(
   },
   {
     q: "Does Safex hold my crypto or money?",
-    a: "No. Safex is a portfolio demo that tracks trades between users. It does not hold funds, verify payments or provide escrow, so please do not use it to trade real money.",
+    a: "Safex uses simulated balances. When you post an offer, the crypto is locked in a demo escrow until the trade is completed or the offer is closed. No real crypto or money is held, sent or verified, so please do not use it to trade real money.",
   },
   {
     q: "Is my password safe?",

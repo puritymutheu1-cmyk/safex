@@ -3,10 +3,10 @@ import sqlite3
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from app.db import get_conn, init_db, init_trades_db, IntegrityError
+from app.db import get_conn, init_db, init_trades_db, init_wallet_db, IntegrityError
 from app.security import hash_password, verify_password, create_token
 from app.deps import current_user
-from app import offers, trades
+from app import offers, trades, wallet
 
 app = FastAPI(title="Safex API")
 
@@ -20,8 +20,10 @@ app.add_middleware(
 
 init_db()
 init_trades_db()
+init_wallet_db()
 app.include_router(offers.router)
 app.include_router(trades.router)
+app.include_router(wallet.router)
 
 
 class RegisterIn(BaseModel):

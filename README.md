@@ -22,7 +22,8 @@ such as M-Pesa, Airtel Money or bank transfer.
 - Post your own offers with a price, limits and payment method
 - Buy flow with amount limits and an estimate of the coins you receive
 - Trade lifecycle: pending, paid, completed or cancelled
-- Dashboard showing your active and completed trades
+- Dashboard showing your balances, open offers and trades
+- Demo wallet with deposit and withdraw, and escrow that locks a seller's crypto while an offer is open
 - Responsive layout with a mobile menu
 
 ## Tech stack
@@ -123,7 +124,7 @@ The website runs at http://localhost:5173.
 
 ## Known limitations and roadmap
 
-- No real escrow: Safex does not hold or move any crypto or money
+- Escrow, deposits and withdrawals are simulated: no real crypto or money is held or sent
 - Payments are not verified automatically
 - No dispute handling, chat between buyer and seller, or ratings yet
 - Offers cannot yet be edited, and the dashboard has no "my offers" list
