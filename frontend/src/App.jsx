@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import InstallPrompt from "./components/InstallPrompt";
 import Footer from "./components/Footer";
+import BottomNav from "./components/BottomNav";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -41,6 +42,8 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
+      <div className="h-14 md:hidden" />
+      <BottomNav />
     </>
   );
 }
