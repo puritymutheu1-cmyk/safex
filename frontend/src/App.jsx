@@ -1,3 +1,4 @@
+import Settings from "./pages/Settings";
 import Portfolio from "./pages/Portfolio";
 import DownloadApps from "./components/DownloadApps";
 import { Routes, Route } from "react-router-dom";
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="/support" element={<Support />} />
         <Route path="/about" element={<About />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/settings" element={<Settings />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <><DownloadApps /><Footer /></>
