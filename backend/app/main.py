@@ -76,3 +76,6 @@ def me(user=Depends(current_user)):
 
 from app.portfolio import router as portfolio_router
 app.include_router(portfolio_router)
+
+from app.account import router as account_router
+app.include_router(account_router)
