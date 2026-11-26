@@ -1,10 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 
 const tabs = [
-  { to: "/marketplace", label: "Buy" },
-  { to: "/create-offer", label: "Sell" },
-  { to: "/wallet", label: "Wallet" },
-  { to: "/dashboard", label: "Trades" },
+  { to: "/marketplace", label: "Buy", also: [] },
+  { to: "/create-offer", label: "Sell", also: [] },
+  { to: "/wallet", label: "Wallet", also: [] },
+  { to: "/dashboard", label: "Trades", also: [] },
+  { to: "/more", label: "More", also: ["/portfolio", "/settings", "/rewards"] },
 ];
 
 export default function BottomNav() {
@@ -19,7 +20,7 @@ export default function BottomNav() {
           to={t.to}
           className={
             "flex-1 text-center py-3 text-sm font-medium " +
-            (pathname === t.to ? "text-primary" : "text-text-muted")
+            (pathname === t.to || t.also.includes(pathname) ? "text-primary" : "text-text-muted")
           }
         >
           {t.label}

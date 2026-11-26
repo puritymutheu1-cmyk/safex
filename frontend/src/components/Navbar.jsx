@@ -81,6 +81,8 @@ export default function Navbar() {
           {loggedIn && <Link to="/dashboard" className={linkClass('/dashboard')}>Dashboard</Link>}
           {loggedIn && <Link to="/create-offer" className={linkClass('/create-offer')}>Sell</Link>}
           {loggedIn && <Link to="/wallet" className={linkClass('/wallet')}>Wallet</Link>}
+          {loggedIn && <Link to="/portfolio" className={linkClass('/portfolio')}>Portfolio</Link>}
+          {loggedIn && <Link to="/more" className={linkClass('/more')}>More</Link>}
         </div>
 
         <div className="flex items-center gap-3">
@@ -122,6 +124,8 @@ export default function Navbar() {
               <Link to="/dashboard" className={linkClass('/dashboard')}>Dashboard</Link>
               <Link to="/create-offer" className={linkClass('/create-offer')}>Sell</Link>
               <Link to="/wallet" className={linkClass('/wallet')}>Wallet</Link>
+              <Link to="/portfolio" className={linkClass('/portfolio')}>Portfolio</Link>
+              <Link to="/more" className={linkClass('/more')}>More</Link>
               <button onClick={logout} className="text-left text-text-muted hover:text-text">Log out</button>
             </>
           ) : (

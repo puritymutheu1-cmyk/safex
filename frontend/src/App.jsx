@@ -1,3 +1,4 @@
+import More from "./pages/More";
 import Rewards from "./pages/Rewards";
 import Settings from "./pages/Settings";
 import Portfolio from "./pages/Portfolio";
@@ -46,6 +47,7 @@ export default function App() {
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/rewards" element={<Rewards />} />
+        <Route path="/more" element={<More />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <><DownloadApps /><Footer /></>
