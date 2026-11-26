@@ -49,7 +49,7 @@ export default function Marketplace() {
       <h1 className="text-3xl font-bold mb-6">Buy crypto</h1>
 
       <div className="flex gap-2 mb-6">
-        {["ALL", "BTC", "ETH", "USDT"].map((c) => (
+        {["ALL", "USDT", "BTC", "ETH", "USDC", "SOL", "BNB", "XRP", "LTC"].map((c) => (
           <button
             key={c}
             onClick={() => setCoin(c)}
