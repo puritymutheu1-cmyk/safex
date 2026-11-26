@@ -1,3 +1,4 @@
+import DownloadApps from "./components/DownloadApps";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import InstallPrompt from "./components/InstallPrompt";
@@ -41,7 +42,7 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer />
+      <><DownloadApps /><Footer /></>
       <div className="h-14 md:hidden" />
       <BottomNav />
     </>
