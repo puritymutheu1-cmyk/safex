@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import api from "../services/api";
 
 const COINS = ["USDT", "BTC", "ETH"];
@@ -63,6 +63,7 @@ export default function Wallet() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
+      <Link to="/portfolio" className="text-primary underline text-sm block mb-2">Portfolio, convert and history</Link>
       <h1 className="text-3xl font-bold mb-2">Wallet</h1>
       <p className="text-text-muted text-sm mb-6">
         Demo wallet: balances are simulated, and nothing real is deposited or sent.

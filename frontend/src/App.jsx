@@ -1,3 +1,4 @@
+import Portfolio from "./pages/Portfolio";
 import DownloadApps from "./components/DownloadApps";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
@@ -40,6 +41,7 @@ export default function App() {
         <Route path="/learn" element={<Learn />} />
         <Route path="/support" element={<Support />} />
         <Route path="/about" element={<About />} />
+        <Route path="/portfolio" element={<Portfolio />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <><DownloadApps /><Footer /></>
