@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import api from "../services/api";
 
-const CRYPTO = ["USDT", "BTC", "ETH"];
-const ALL = ["USDT", "BTC", "ETH", "KES"];
+const CRYPTO = ["USDT", "BTC", "ETH", "USDC", "SOL", "BNB", "XRP", "LTC"];
+const ALL = ["USDT", "BTC", "ETH", "USDC", "SOL", "BNB", "XRP", "LTC", "KES"];
 const TABS = ["Overview", "Transfer", "Convert", "History"];
 const fmt = (n, d = 4) => Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
 const box = "rounded-2xl border border-border bg-surface p-4";
@@ -14,6 +14,7 @@ export default function Portfolio() {
   const [tab, setTab] = useState("Overview");
   const [data, setData] = useState(null);
   const [rates, setRates] = useState(null);
+  const [live, setLive] = useState(null);
   const [items, setItems] = useState([]);
   const [filter, setFilter] = useState("");
   const [error, setError] = useState("");
@@ -31,6 +32,7 @@ export default function Portfolio() {
       ]);
       setData(a.data);
       setRates(b.data.usd);
+      setLive(b.data.live);
       setItems(c.data.items);
     } catch {
       setError("Could not load your portfolio. The server may be waking up, try again in a minute.");
@@ -66,7 +68,7 @@ export default function Portfolio() {
     <div className="max-w-2xl mx-auto px-4 py-6 pb-24">
       <h1 className="text-2xl font-bold">Portfolio</h1>
       <p className="text-text-muted text-sm mb-4">
-        Demo balances with fixed demo prices. No real money.{" "}
+        Demo balances, no real money. Prices: {live === null ? "loading" : live ? "live market rates" : "estimates"}.{" "}
         <Link to="/wallet" className="text-primary underline">Wallet</Link>
       </p>
       <div className="flex gap-2 overflow-x-auto mb-4">

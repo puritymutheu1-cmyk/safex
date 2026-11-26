@@ -14,6 +14,7 @@ export default function Settings() {
   const [pm, setPm] = useState({ method: "M-Pesa", details: "" });
   const [prof, setProf] = useState({ name: "", email: "", currency: "USD" });
   const [pw, setPw] = useState({ current_password: "", new_password: "" });
+  const [logins, setLogins] = useState([]);
   const [error, setError] = useState("");
   const [msg, setMsg] = useState("");
   const loggedIn = !!localStorage.getItem("token");
@@ -27,6 +28,7 @@ export default function Settings() {
       setMethods(a.data.items);
       setOptions(a.data.methods);
       setProf(b.data);
+      api.get("/account/logins").then((r) => setLogins(r.data.items)).catch(() => {});
     } catch {
       setError("Could not load. The server may be waking up, try again in a minute.");
     }
@@ -142,6 +144,17 @@ export default function Settings() {
               <li>In a real trade, release crypto only after the money is in your account.</li>
               <li>Log out on shared phones and computers.</li>
             </ul>
+          </div>
+          <div className={box}>
+            <h2 className="font-semibold mb-2">Recent logins</h2>
+            {logins.length === 0 && <p className="text-text-muted text-sm">Nothing recorded yet. New logins will show here.</p>}
+            {logins.map((l, i) => (
+              <div key={i} className="border-t border-border py-2 text-sm">
+                <div className="flex justify-between"><span>{l.device}</span><span className="text-text-muted">{l.ip}</span></div>
+                <div className="text-text-muted text-xs">{new Date(l.created_ts * 1000).toLocaleString()}</div>
+              </div>
+            ))}
+            <p className="text-text-muted text-xs mt-2">If you see a login that is not you, change your password now.</p>
           </div>
           <button onClick={logout} className="w-full rounded-xl border border-error text-error font-semibold px-4 py-2.5">Log out</button>
         </div>

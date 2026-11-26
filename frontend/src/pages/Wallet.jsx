@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Navigate, Link } from "react-router-dom";
 import api from "../services/api";
 
-const COINS = ["USDT", "BTC", "ETH"];
+const COINS = ["USDT", "BTC", "ETH", "USDC", "SOL", "BNB", "XRP", "LTC"];
 
 export default function Wallet() {
   const [wallet, setWallet] = useState(null);

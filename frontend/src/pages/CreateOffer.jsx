@@ -66,6 +66,11 @@ export default function CreateOffer() {
           <option>USDT</option>
           <option>BTC</option>
           <option>ETH</option>
+          <option>USDC</option>
+          <option>SOL</option>
+          <option>BNB</option>
+          <option>XRP</option>
+          <option>LTC</option>
         </select>
         <p className="text-xs text-text-muted -mt-2">
           Available: {have.toLocaleString(undefined, { maximumFractionDigits: 8 })} {form.coin}{" "}
