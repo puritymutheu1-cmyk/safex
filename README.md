@@ -140,3 +140,82 @@ Released under the [MIT License](LICENSE).
 ![Home](screenshots/home.png)
 ![Marketplace](screenshots/marketplace.png)
 ![Dashboard](screenshots/dashboard.png)
+
+## Run it locally
+
+**Backend**
+```bash
+cd backend
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+Uses a local SQLite file (`safex.db`) when `DATABASE_URL` is not set.
+
+**Frontend**
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Open http://localhost:5173. The frontend talks to http://localhost:8000 unless `VITE_API_URL` is set.
+
+## Environment variables
+
+| Variable | Where | Purpose |
+|---|---|---|
+| `DATABASE_URL` | backend | PostgreSQL connection string (production) |
+| `SECRET_KEY` | backend | Signs login tokens. Use a long random value |
+| `FRONTEND_URL` | backend | Allowed frontend origin for CORS |
+| `VITE_API_URL` | frontend | Address of the backend API |
+
+Never commit real secrets. Generate a key with:
+```bash
+python3 -c "import secrets; print(secrets.token_hex(32))"
+```
+
+## API overview
+
+Full interactive docs are at `/docs` on the backend.
+
+| Area | Endpoints |
+|---|---|
+| Auth | `POST /auth/register`, `POST /auth/login`, `GET /auth/me` |
+| Offers | `GET /offers`, `GET /offers/mine`, `POST /offers`, `DELETE /offers/{id}` |
+| Trades | `POST /trades`, `GET /trades/mine`, `POST /trades/{id}/paid`, `/release`, `/cancel` |
+| Wallet | `GET /wallet`, `POST /wallet/deposit`, `POST /wallet/withdraw` |
+| Portfolio | `GET /portfolio`, `GET /portfolio/rates`, `GET /portfolio/history`, `POST /portfolio/transfer`, `POST /portfolio/convert` |
+| Account | `GET/POST/DELETE /account/payment-methods`, `GET/PUT /account/settings`, `POST /account/change-password`, `GET /account/logins` |
+| Growth | `GET /growth/referral`, `POST /growth/referral/apply`, `GET/POST /growth/verification` |
+| Health | `GET /health` |
+
+## How the escrow works
+
+1. A seller posts an offer. The coins move from their available balance to locked.
+2. A buyer opens a trade. That amount is reserved on the offer.
+3. The buyer pays the seller outside the app and marks the trade as paid.
+4. The seller confirms and releases. The locked coins move to the buyer.
+5. If the trade is cancelled, the coins return to the offer or the seller.
+
+All balance changes use guarded database updates so a balance can never go negative.
+
+## Limitations
+
+- Everything is simulated: deposits, withdrawals, payments and statuses are timers, not real transactions.
+- Prices are live when the price service responds, otherwise fixed estimates.
+- Verification is a demo form and checks nothing.
+- No dispute handling, trade expiry, two-factor authentication or email verification yet.
+- The free backend sleeps after inactivity.
+
+## Ideas for next steps
+
+- Trade expiry for unpaid trades
+- Two-factor authentication and email verification
+- Dispute and reporting flow
+- Chat between buyer and seller
+- Automated tests
+
+## License
+
+MIT. See [LICENSE](LICENSE).
