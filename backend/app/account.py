@@ -145,3 +145,69 @@ def change_password(data: PasswordIn, user=Depends(current_user)):
     conn.commit()
     conn.close()
     return {"message": "Password changed"}
+
+
+def ensure_logins():
+    conn = get_conn()
+    conn.execute(
+        f"""CREATE TABLE IF NOT EXISTS login_events (
+            id {PK},
+            user_id INTEGER NOT NULL,
+            ip TEXT,
+            device TEXT,
+            created_ts DOUBLE PRECISION NOT NULL
+        )"""
+    )
+    conn.commit()
+    conn.close()
+
+
+def describe_device(agent):
+    a = (agent or "").lower()
+    if "iphone" in a or "ipad" in a:
+        os_name = "iPhone/iPad"
+    elif "android" in a:
+        os_name = "Android"
+    elif "windows" in a:
+        os_name = "Windows"
+    elif "mac os" in a or "macintosh" in a:
+        os_name = "Mac"
+    elif "linux" in a:
+        os_name = "Linux"
+    else:
+        os_name = "Unknown device"
+    for key, label in (("edg/", "Edge"), ("opr/", "Opera"), ("firefox", "Firefox"),
+                       ("chrome", "Chrome"), ("safari", "Safari")):
+        if key in a:
+            return os_name + ", " + label
+    return os_name
+
+
+def record_login(user_id, request):
+    # Never let this break logging in.
+    try:
+        ensure_logins()
+        fwd = request.headers.get("x-forwarded-for", "")
+        ip = fwd.split(",")[0].strip() if fwd else (request.client.host if request.client else "")
+        device = describe_device(request.headers.get("user-agent", ""))
+        conn = get_conn()
+        conn.execute(
+            "INSERT INTO login_events (user_id, ip, device, created_ts) VALUES (?, ?, ?, ?)",
+            (user_id, ip[:60], device, time.time()),
+        )
+        conn.commit()
+        conn.close()
+    except Exception:
+        pass
+
+
+@router.get("/logins")
+def recent_logins(user=Depends(current_user)):
+    ensure_logins()
+    conn = get_conn()
+    rows = conn.execute(
+        "SELECT ip, device, created_ts FROM login_events WHERE user_id = ? ORDER BY id DESC LIMIT 10",
+        (user["id"],),
+    ).fetchall()
+    conn.close()
+    return {"items": [dict(r) for r in rows]}

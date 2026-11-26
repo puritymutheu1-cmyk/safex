@@ -6,7 +6,7 @@ from app.deps import current_user
 from app.wallet import log
 
 router = APIRouter(prefix="/offers", tags=["offers"])
-COINS = {"BTC", "ETH", "USDT"}
+COINS = set(["BTC", "ETH", "USDT", "USDC", "SOL", "BNB", "XRP", "LTC"])
 METHODS = {"M-Pesa", "Airtel Money", "Bank transfer"}
 
 

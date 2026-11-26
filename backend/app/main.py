@@ -1,3 +1,4 @@
+from fastapi import Request
 import os
 import sqlite3
 from fastapi import FastAPI, HTTPException, Depends
@@ -59,7 +60,7 @@ def register(data: RegisterIn):
 
 
 @app.post("/auth/login")
-def login(data: LoginIn):
+def login(data: LoginIn, request: Request):
     conn = get_conn()
     user = conn.execute(
         "SELECT * FROM users WHERE email = ?", (data.email.lower(),)
@@ -67,6 +68,8 @@ def login(data: LoginIn):
     conn.close()
     if not user or not verify_password(data.password, user["password"]):
         raise HTTPException(status_code=401, detail="Wrong email or password")
+    from app.account import record_login
+    record_login(user["id"], request)
     return {"access_token": create_token(user["id"]), "token_type": "bearer"}
 
 

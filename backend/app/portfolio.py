@@ -8,9 +8,20 @@ from app.wallet import log, credit
 router = APIRouter(prefix="/portfolio", tags=["portfolio"])
 
 # Demo prices in USD. Fixed on purpose: this is a simulation, not live market data.
-USD = {"BTC": 65000.0, "ETH": 3000.0, "USDT": 1.0, "KES": 1 / 129.0}
-CRYPTO = ["BTC", "ETH", "USDT"]
-SPOT_ASSETS = ["BTC", "ETH", "USDT", "KES"]
+from app.coins import COINS, usd_rates, kes_per_usd, is_live
+
+
+class _Live:
+    def __getitem__(self, k):
+        return usd_rates()[k]
+
+    def get(self, k, d=0):
+        return usd_rates().get(k, d)
+
+
+USD = _Live()
+CRYPTO = list(COINS)
+SPOT_ASSETS = list(COINS) + ["KES"]
 EPS = 0.000000001
 
 
@@ -61,7 +72,7 @@ class ConvertIn(BaseModel):
 
 @router.get("/rates")
 def rates():
-    return {"usd": USD, "kes_per_usd": 129.0, "demo": True}
+    return {"usd": usd_rates(), "kes_per_usd": kes_per_usd(), "live": is_live(), "coins": list(COINS), "demo": True}
 
 
 @router.get("")
@@ -109,7 +120,7 @@ def overview(user=Depends(current_user)):
             stats["transfers"] += 1
     return {
         "funding": funding, "spot": spotl, "total_usd": round(total, 2),
-        "total_kes": round(total * 129.0, 2), "allocation": alloc,
+        "total_kes": round(total * kes_per_usd(), 2), "allocation": alloc,
         "stats": stats, "demo": True,
     }
 

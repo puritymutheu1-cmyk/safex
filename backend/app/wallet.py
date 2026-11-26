@@ -5,8 +5,8 @@ from app.db import get_conn
 from app.deps import current_user
 
 router = APIRouter(prefix="/wallet", tags=["wallet"])
-ASSETS = ["BTC", "ETH", "USDT"]
-DEMO_DEPOSIT_MAX = {"BTC": 0.05, "ETH": 1.0, "USDT": 1000.0}
+ASSETS = ["BTC", "ETH", "USDT", "USDC", "SOL", "BNB", "XRP", "LTC"]
+DEMO_DEPOSIT_MAX = {"BTC": 0.05, "ETH": 1.0, "USDT": 1000.0, "USDC": 1000.0, "SOL": 10.0, "BNB": 2.0, "XRP": 2000.0, "LTC": 10.0}
 
 
 def log(conn, user_id, kind, asset, amount, note=""):
