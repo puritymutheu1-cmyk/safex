@@ -8,6 +8,7 @@ export default function CreateOffer() {
     method: "M-Pesa", payment_details: "",
   });
   const [balances, setBalances] = useState({});
+  const [saved, setSaved] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ export default function CreateOffer() {
       res.data.balances.forEach((b) => { map[b.asset] = b.available; });
       setBalances(map);
     }).catch(() => {});
+    api.get("/account/payment-methods").then((r) => setSaved(r.data.items)).catch(() => {});
   }, []);
 
   const handleChange = (e) =>
@@ -74,6 +76,15 @@ export default function CreateOffer() {
         <input type="number" step="any" name="price" placeholder="Price per coin (KES)" value={form.price} onChange={handleChange} required className={box} />
         <input type="number" name="min_kes" placeholder="Minimum per trade (KES)" value={form.min_kes} onChange={handleChange} required className={box} />
         <input type="number" name="max_kes" placeholder="Maximum per trade (KES)" value={form.max_kes} onChange={handleChange} required className={box} />
+        {saved.length > 0 && (
+          <select className={box} defaultValue="" onChange={(e) => {
+            const m = saved.find((x) => String(x.id) === e.target.value);
+            if (m) setForm({ ...form, method: m.method, payment_details: m.details });
+          }}>
+            <option value="">Use a saved payment method</option>
+            {saved.map((m) => <option key={m.id} value={m.id}>{m.method}: {m.details}</option>)}
+          </select>
+        )}
         <select name="method" value={form.method} onChange={handleChange} className={box}>
           <option>M-Pesa</option>
           <option>Airtel Money</option>
