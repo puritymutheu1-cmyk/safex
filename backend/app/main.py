@@ -73,3 +73,6 @@ def login(data: LoginIn):
 @app.get("/auth/me")
 def me(user=Depends(current_user)):
     return user
+
+from app.portfolio import router as portfolio_router
+app.include_router(portfolio_router)
