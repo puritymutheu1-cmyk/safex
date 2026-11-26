@@ -79,3 +79,6 @@ app.include_router(portfolio_router)
 
 from app.account import router as account_router
 app.include_router(account_router)
+
+from app.growth import router as growth_router
+app.include_router(growth_router)
