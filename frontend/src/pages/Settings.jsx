@@ -66,6 +66,8 @@ export default function Settings() {
         <Link to="/wallet" className="text-primary underline">Wallet</Link>
         {" · "}
         <Link to="/support" className="text-primary underline">Get help</Link>
+        {" · "}
+        <Link to="/rewards" className="text-primary underline">Rewards</Link>
       </p>
       <div className="flex gap-2 overflow-x-auto mb-4">
         {TABS.map((t) => (

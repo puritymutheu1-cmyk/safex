@@ -1,3 +1,4 @@
+import Rewards from "./pages/Rewards";
 import Settings from "./pages/Settings";
 import Portfolio from "./pages/Portfolio";
 import DownloadApps from "./components/DownloadApps";
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/rewards" element={<Rewards />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <><DownloadApps /><Footer /></>
